@@ -1,0 +1,25 @@
+node {
+    stage('Checkout') 
+    {
+        checkout([$class: 'GitSCM', 
+        branches: [[name: '*/master']], 
+        doGenerateSubmoduleConfigurations: false, 
+        extensions: [], submoduleCfg: [], 
+        userRemoteConfigs: [[credentialsId: 'Bitbucket_login_Pramod', 
+        url: 'https://devopspramod@bitbucket.org/devopspramod/php-pipeline-demo.git']]])   
+    }
+
+    stage('Build image') 
+    {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
+
+        app = docker.build("php-demo:latest")
+    }
+
+    stage('Deployment')
+    {
+      sh "docker-compose down"
+      sh "docker-compose up -d --build"
+    }
+}
