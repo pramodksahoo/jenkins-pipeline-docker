@@ -16,7 +16,7 @@ services:
       ports:
          - '3306:3306'
       networks:
-        - leadgenilluminati
+        - test-network
     # phpmyadmin
     phpmyadmin:
       image: phpmyadmin/phpmyadmin
@@ -31,10 +31,10 @@ services:
         PMA_PORT: 3306
         PMA_ARBITRARY: 1
       networks:
-        - leadgenilluminati
+        - test-network
       volumes:
         - /home/ubuntu/phpmyadmin-mysql/upload.ini:/usr/local/etc/php/php.ini
 
 networks:
-  leadgenilluminati:
+  test-network:
 
